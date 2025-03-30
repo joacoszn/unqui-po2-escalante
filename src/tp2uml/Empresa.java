@@ -1,45 +1,58 @@
 package tp2uml;
-import java.util.Map;
 import java.util.HashMap;
-import java.util.List;
 import java.util.ArrayList;
 import java.time.*;
+import java.util.Objects;
 
 public class Empresa {
 	private String nombre;
 	private int cuit;
-	private List <Empleado> empleados;
-	private Map<Integer, ArrayList<ReciboDeHaberes>> recibosDeHaberes;
-	
-	public Empresa() {
-		nombre = null;
-		cuit = 0;
-		empleados = new ArrayList<>();
-		recibosDeHaberes = new HashMap<>();
+	private ArrayList <Empleado> empleados;
+	private HashMap<Integer, ArrayList<ReciboDeHaberes>> recibosDeHaberes;
+
+	public Empresa(String nombre, int cuit) {
+	    this.nombre = Objects.requireNonNull(nombre, "Nombre no puede ser nulo");
+	    if (cuit <= 0) throw new IllegalArgumentException("CUIT no válido");
+	    this.cuit = cuit;
+	    this.empleados = new ArrayList<>();
+	    this.recibosDeHaberes = new HashMap<>();
+	    System.out.println("La empresa "+nombre+" ha sido creada con éxito.");
 	}
 	
-	public int totalSueldosNetos() {
-	    int sueldosNetos = 0;
+	public void registrarEmpleado(Empleado empleado) {
+		if (empleado == null) {
+	        throw new IllegalArgumentException("Empleado no puede ser nulo.");
+	    }
+		empleados.add(empleado);
+		recibosDeHaberes.put(empleado.dni, new ArrayList<ReciboDeHaberes>());
+	    System.out.println("Se ha registrado a "+empleado.nombre+" en la empresa "+this.nombre+" con éxito.");
+		}
+	
+	public Double totalSueldosNetos() {
+	    Double sueldosNetos = 0.0;
 	    for (Empleado empleado : empleados) {
 	        sueldosNetos += empleado.sueldoNeto();
 	    }
+	    System.out.println("El monto total de los sueldos netos es de $"+sueldosNetos+".");
 	    return sueldosNetos;
 	}
 	
-	public int totalSueldosBrutos() {
-		int sueldosBrutos = 0;
+	public Double totalSueldosBrutos() {
+		Double sueldosBrutos = 0.0;
 	    for (Empleado empleado : empleados) {
 	        sueldosBrutos += empleado.sueldoBruto();
 	    }
+	    System.out.println("El monto total de los sueldos brutos es de $"+sueldosBrutos+".");
 	    return sueldosBrutos;
 		
 	}
 	
-	public int totalRetenciones() {
-		int totalRetenciones = 0;
+	public Double totalRetenciones() {
+		Double totalRetenciones = 0.0;
 	    for (Empleado empleado : empleados) {
 	        totalRetenciones += empleado.retenciones();
 	    }
+	    System.out.println("El monto total de todas las retenciones es de $"+totalRetenciones+".");
 	    return totalRetenciones;
 		
 	}
@@ -48,31 +61,28 @@ public class Empresa {
 		for (Empleado empleado : empleados) {
 			this.procesarLiquidacionDeSueldoDe(empleado);
 		}
+		System.out.println("Todos los sueldos han sido liquidados con éxito.");
 	}
 	
 	public void procesarLiquidacionDeSueldoDe(Empleado empleado) {
 		ArrayList <ReciboDeHaberes> recibos = this.recibosDeHaberesDe(empleado);
 		recibos.add(new ReciboDeHaberes(empleado));
 		recibosDeHaberes.put((empleado.dni),recibos);
+		System.out.println("El sueldo del trabajador "+empleado.nombre+" ha sido liquidado con éxito.");
+		System.out.println((this.ultimoReciboDe(empleado)).generarDesgloceDeConceptos());
 	}
 	
 	public ArrayList <ReciboDeHaberes> recibosDeHaberesDe (Empleado empleado){
 		return(recibosDeHaberes.get(empleado.dni));
 	}
 	
+	public ReciboDeHaberes ultimoReciboDe(Empleado empleado) {
+		return(recibosDeHaberesDe(empleado).get(0));
+	}
+	
 
 	public static void main(String[] args) {
-		PlantaPermanente joaquin = new PlantaPermanente ("Joaquin", 44170192,"Einstein 4537","Soltero",LocalDate.parse("2002-04-21"),800000,2,10);
-		PlantaTemporaria colo = new PlantaTemporaria ("Colo", 45695393, "Husares 3855", "Soltero", LocalDate.parse("2002-03-24"), 400000);
-		Empresa miEmpresa = new Empresa();
-		miEmpresa.empleados.add(joaquin);
-		miEmpresa.empleados.add(colo);
-		ReciboDeHaberes recibo = new ReciboDeHaberes(joaquin);
-		ReciboDeHaberes recibo2 = new ReciboDeHaberes(colo);
-		System.out.println(recibo.generarDesgloceDeConceptos());
-		System.out.println(recibo2.generarDesgloceDeConceptos());
 	}
-
 }
 
 	

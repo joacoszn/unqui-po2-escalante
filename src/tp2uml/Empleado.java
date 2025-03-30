@@ -9,44 +9,46 @@ public abstract class Empleado {
 	protected String direccion;
 	protected String estadoCivil;
 	protected LocalDate fechaNacimiento;
-	protected int sueldoBasico;
+	protected Double sueldoBasico;
+	
+	public abstract Double sueldoBruto();
+	
+	public abstract Double retenciones();
+	
+	public abstract Double aportesJubilatorios();
+	
+	public abstract String generarDesgloce();
 	
 	public int edad() {
 		LocalDate fechaActual = LocalDate.now();
-		return Period.between(fechaActual, fechaNacimiento).getYears();
-	}
-	
-	public abstract int sueldoBruto();
-	
-	public abstract int retenciones();
-	
-	public abstract int aportesJubilatorios();
-	
-	public int valorHorasExtras() {
-		return 0;
-	}
-	
-	public int descuentoPorHijos() {
-		return 0;
-	}
-	
-	public int descuentoPorEdad() {
-		return 0;
-	}
-	
-	public int descuentoPorHorasExtras() {
-		return 0;
-	}
-	
-	public int salarioFamiliar() {
-		return 0;
+		return Period.between(fechaNacimiento, fechaActual).getYears();
 	}
 
-	public int sueldoNeto() {
+	public Double valorHorasExtras() {
+		return 0.0;
+	}
+	
+	public Double descuentoPorHijos() {
+		return 0.0;
+	}
+	
+	public Double descuentoPorEdad() {
+		return 0.0;
+	}
+	
+	public Double descuentoPorHorasExtras() {
+		return 0.0;
+	}
+	
+	public Double salarioFamiliar() {
+		return 0.0;
+	}
+
+	public Double sueldoNeto() {
 		return(this.sueldoBruto()-this.retenciones());
 	}
 	
-	public int descuentoPorObraSocial() {
+	public Double descuentoPorObraSocial() {
 		return (this.sueldoBruto() * 10 / 100);
 	}
 	
@@ -60,7 +62,7 @@ class PlantaPermanente extends Empleado {
 	protected int cantidadDeHijos;
 	protected int antiguedad;
 	
-	public PlantaPermanente (String nombre, Integer dni, String direccion, String estadoCivil, LocalDate fechaNacimiento, int sueldoBasico, int cantidadDeHijos, int antiguedad){
+	public PlantaPermanente (String nombre, Integer dni, String direccion, String estadoCivil, LocalDate fechaNacimiento, Double sueldoBasico, int cantidadDeHijos, int antiguedad){
 		this.nombre = nombre;
 		this.dni = dni;
 		this.direccion = direccion;
@@ -71,32 +73,32 @@ class PlantaPermanente extends Empleado {
 		this.antiguedad = antiguedad;
 	}
 	
-	public int sueldoBruto() {
+	public Double sueldoBruto() {
 		return((sueldoBasico + this.salarioFamiliar()));
 	}
 	
-	public int retenciones() {
+	public Double retenciones() {
 		return (this.descuentoPorObraSocial()+ this.descuentoPorHijos()+ this.aportesJubilatorios());
 	}
 	
-	public int aportesJubilatorios() {
+	public Double aportesJubilatorios() {
 		return (this.sueldoBruto() * 15 / 100);
 	}
 
-	public int asignacionPorConyuge() {
+	public Double asignacionPorConyuge() {
 		if (estadoCivil == "Casado") {
-			return (100);
+			return (100.00);
 		}
-		return (0);
+		return (0.0);
 	}
 	
-	public int asignacionPorHijo() {
-		return(cantidadDeHijos * 150);
+	public Double asignacionPorHijo() {
+		return (double) (cantidadDeHijos * 150);
 	}
 	
 	@Override
-		public int descuentoPorHijos() {
-		return (this.cantidadDeHijos * 20);
+		public Double descuentoPorHijos() {
+		return (double) (this.cantidadDeHijos * 20);
 	}
 	
 	@Override
@@ -105,8 +107,27 @@ class PlantaPermanente extends Empleado {
 	}
 	
 	@Override
-	public int salarioFamiliar() {
+	public Double salarioFamiliar() {
 		return(this.asignacionPorHijo()+this.asignacionPorConyuge());
+	}
+	
+	@Override
+	public String generarDesgloce() {
+		StringBuilder sb = new StringBuilder();
+	    
+		sb.append("=== Desglose de Conceptos ===\n");
+        sb.append("Trabajador: ").append(nombre).append("\n");
+        sb.append("Tipo : Planta Permanente").append("\n");
+        sb.append("Sueldo basico: $").append(sueldoBasico).append("\n");
+        sb.append("Salario familiar: $").append(this.salarioFamiliar()).append("\n");
+        sb.append("Sueldo bruto: $").append(this.sueldoBruto()).append("\n");;
+        sb.append("Retenciones: ").append("\n");
+        sb.append("Obra social: $").append(this.descuentoPorObraSocial()).append("\n");
+        sb.append("Aportes jubilatorios: $").append(this.aportesJubilatorios()).append("\n");
+        sb.append("Descuento por hijos: $").append(this.descuentoPorHijos()).append("\n");
+        sb.append("Sueldo Neto: $").append(this.sueldoNeto()).append("\n");     
+        
+        return sb.toString();
 	}
 }
 
@@ -115,7 +136,7 @@ class PlantaTemporaria extends Empleado {
 	protected LocalDate fechaFinalizacionDeContrato;
 	protected int horasExtras;
 	
-	public PlantaTemporaria (String nombre, Integer dni, String direccion, String estadoCivil, LocalDate fechaNacimiento, int sueldoBasico){
+	public PlantaTemporaria (String nombre, Integer dni, String direccion, String estadoCivil, LocalDate fechaNacimiento, Double sueldoBasico){
 		this.nombre = nombre;
 		this.dni = dni;
 		this.direccion = direccion;
@@ -126,33 +147,53 @@ class PlantaTemporaria extends Empleado {
 		horasExtras = 0;
 	}
 	
-	public int sueldoBruto() {
-		return (sueldoBasico + horasExtras * 40);
+	public Double sueldoBruto() {
+		return (sueldoBasico + horasExtras * 40.0);
 	}
-	
-	public int retenciones() {
+
+	public Double retenciones() {
 		return(this.descuentoPorObraSocial()+this.aportesJubilatorios()+this.descuentoPorEdad()+this.descuentoPorHorasExtras());
 	}
 	
-	public int aportesJubilatorios() {
-		return (this.sueldoBruto() * 10 / 100);
+	public Double aportesJubilatorios() {
+		return (this.sueldoBruto() * 10. / 100);
 	}
 	
 	@Override
-		public int valorHorasExtras() {
-		return horasExtras * 40;
+		public Double valorHorasExtras() {
+		return horasExtras * 40.0;
 	}
 	
 	@Override
-	public int descuentoPorEdad() {
+	public Double descuentoPorEdad() {
 		if (this.edad() > 50) {
-			return (25);
+			return (25.00);
 		}
-		return (0);
+		return (0.0);
 	}
 	
 	@Override
-	public int descuentoPorHorasExtras() {
-		return (horasExtras*5);
+	public Double descuentoPorHorasExtras() {
+		return (horasExtras*5.0);
+	}
+	
+	@Override
+	public String generarDesgloce() {
+		StringBuilder sb = new StringBuilder();
+		
+        sb.append("=== Desglose de Conceptos ===\n");
+        sb.append("Trabajador: ").append(nombre).append("\n");
+        sb.append("Tipo : Planta Temporaria").append("\n");
+        sb.append("Sueldo basico: $").append(sueldoBasico).append("\n");
+        sb.append("Horas extras: $").append(this.valorHorasExtras()).append("\n");
+        sb.append("Sueldo bruto: $").append(this.sueldoBruto()).append("\n");
+        sb.append("Retenciones: ").append("\n");
+        sb.append("Obra social: $").append(this.descuentoPorObraSocial()).append("\n");
+        sb.append("Aportes jubilatorios: $").append(this.aportesJubilatorios()).append("\n");
+        sb.append("Descuento por edad: $").append(this.descuentoPorEdad()).append("\n");
+        sb.append("Descuento por horas extras: $").append(this.descuentoPorHorasExtras()).append("\n");
+        sb.append("Sueldo Neto: $").append(this.sueldoNeto()).append("\n");
+        
+        return sb.toString();
 	}
 }
