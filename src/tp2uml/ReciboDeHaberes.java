@@ -26,8 +26,6 @@ public class ReciboDeHaberes {
 		
 		return(empleado.generarDesgloce());		
 		}
-	
-
 }
 
 

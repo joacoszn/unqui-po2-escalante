@@ -116,7 +116,7 @@ class PlantaPermanente extends Empleado {
 		StringBuilder sb = new StringBuilder();
 	    
 		sb.append("=== Desglose de Conceptos ===\n");
-        sb.append("Trabajador: ").append(nombre).append("\n");
+        sb.append("Nombre trabajador: ").append(nombre).append("\n");
         sb.append("Tipo : Planta Permanente").append("\n");
         sb.append("Sueldo basico: $").append(sueldoBasico).append("\n");
         sb.append("Salario familiar: $").append(this.salarioFamiliar()).append("\n");

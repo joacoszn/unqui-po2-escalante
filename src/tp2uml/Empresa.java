@@ -21,7 +21,7 @@ public class Empresa {
 	
 	public void registrarEmpleado(Empleado empleado) {
 		if (empleado == null) {
-	        throw new IllegalArgumentException("Empleado no puede ser nulo");
+	        throw new IllegalArgumentException("Empleado no puede ser nulo.");
 	    }
 		empleados.add(empleado);
 		recibosDeHaberes.put(empleado.dni, new ArrayList<ReciboDeHaberes>());
