@@ -196,4 +196,5 @@ class PlantaTemporaria extends Empleado {
         
         return sb.toString();
 	}
+	
 }
