@@ -1,4 +1,4 @@
-package tp2uml;
+package ar.edu.unq.po2.tp2;
 
 import java.time.LocalDate;
 

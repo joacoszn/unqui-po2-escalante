@@ -1,4 +1,6 @@
-package tp2uml;
+package ar.edu.unq.po2.tp2;
+import java.util.Map;
+import java.util.List;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.time.*;
@@ -7,8 +9,8 @@ import java.util.Objects;
 public class Empresa {
 	private String nombre;
 	private int cuit;
-	private ArrayList <Empleado> empleados;
-	private HashMap<Integer, ArrayList<ReciboDeHaberes>> recibosDeHaberes;
+	private List <Empleado> empleados;
+	private Map<Integer, ArrayList<ReciboDeHaberes>> recibosDeHaberes;
 
 	public Empresa(String nombre, int cuit) {
 	    this.nombre = Objects.requireNonNull(nombre, "Nombre no puede ser nulo");
@@ -82,8 +84,13 @@ public class Empresa {
 	
 
 	public static void main(String[] args) {
-	}
-	
+		Empresa TecnoLab = new Empresa("TecnoLab S.A", 25325);
+		Empleado Joaquin = new Contratado("Joaquin", 44170192, "Albert Einstein 4537", "Soltero", LocalDate.parse("2002-04-21"), 950000.0, 505, "Efectivo");
+		Empleado Alexander = new PlantaPermanente("Alexander", 44130295, "Husares 3855", "Soltero", LocalDate.parse("2002-03-24"), 1200000.0, 4, 20);
+		TecnoLab.registrarEmpleado(Joaquin);
+		TecnoLab.registrarEmpleado(Alexander);
+		TecnoLab.liquidarSueldos();
+	}	
 }
 
 	
