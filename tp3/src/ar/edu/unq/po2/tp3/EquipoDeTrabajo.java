@@ -1,6 +1,5 @@
 package ar.edu.unq.po2.tp3;
 import java.util.List;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class EquipoDeTrabajo {

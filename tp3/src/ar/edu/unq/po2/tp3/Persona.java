@@ -1,7 +1,6 @@
 package ar.edu.unq.po2.tp3;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Objects;
 
 public class Persona {
 	private String nombre;
