@@ -1,0 +1,124 @@
+Ejercicio 1
+Calculo de Sueldos Netos:
+
+	public static void main(String[] args) {
+		Empresa miEmpresa = new Empresa("TecnoLab",4563);
+		Empleado joaquin = new EmpleadoPlantaPermanente ("Joaquin", 44170192,"Einstein 4537","Soltero",LocalDate.parse("2002-04-21"),800000.0, 2, 10);
+		Empleado colo = new EmpleadoPlantaTemporaria ("Colo", 45695393, "Husares 3855", "Soltero", LocalDate.parse("2002-03-24"), 400000.0);
+		miEmpresa.registrarEmpleado(joaquin);
+		miEmpresa.registrarEmpleado(colo);
+		miEmpresa.totalSueldosNetos();
+	}
+}
+
+Resultado de salida en consola:
+
+La empresa TecnoLab ha sido creada con éxito.
+Se ha registrado a Joaquin en la empresa TecnoLab con éxito.
+Se ha registrado a Colo en la empresa TecnoLab con éxito.
+El monto total de los sueldos netos es de $920185.0.
+
+Liquidacion de Sueldos Netos:
+	public static void main(String[] args) {
+		Empresa miEmpresa = new Empresa("TecnoLab",4563);
+		PlantaPermanente joaquin = new PlantaPermanente ("Joaquin", 44170192,"Einstein 4537","Soltero",LocalDate.parse("2002-04-21"),800000.0, 2, 10);
+		PlantaTemporaria colo = new PlantaTemporaria ("Colo", 45695393, "Husares 3855", "Soltero", LocalDate.parse("2002-03-24"), 400000.0);
+		miEmpresa.registrarEmpleado(joaquin);
+		miEmpresa.registrarEmpleado(colo);
+		miEmpresa.liquidarSueldos();
+	}
+
+Resultado de salida en consola:
+
+La empresa TecnoLab ha sido creada con éxito.
+Se ha registrado a Joaquin en la empresa TecnoLab con éxito.
+Se ha registrado a Colo en la empresa TecnoLab con éxito.
+El sueldo del trabajador Joaquin ha sido liquidado con éxito.
+=== Desglose de Conceptos ===
+Trabajador: Joaquin
+Tipo : Planta Permanente
+Sueldo basico: $800000.0
+Salario familiar: $300.0
+Sueldo bruto: $800300.0
+Retenciones: 
+Obra social: $80030.0
+Aportes jubilatorios: $120045.0
+Descuento por hijos: $40.0
+Sueldo Neto: $600185.0
+
+El sueldo del trabajador Colo ha sido liquidado con éxito.
+=== Desglose de Conceptos ===
+Trabajador: Colo
+Tipo : Planta Temporaria
+Sueldo basico: $400000.0
+Horas extras: $0.0
+Sueldo bruto: $400000.0
+Retenciones: 
+Obra social: $40000.0
+Aportes jubilatorios: $40000.0
+Descuento por edad: $0.0
+Descuento por horas extras: $0.0
+Sueldo Neto: $320000.0
+
+Todos los sueldos han sido liquidados con éxito.
+
+Ejercicio 2:
+Calculo de Sueldos Netos:
+
+public static void main(String[] args) {
+		Empresa TecnoLab = new Empresa("TecnoLab S.A", 25325);
+		Empleado Joaquin = new EmpleadoContratado("Joaquin", 44170192, "Albert Einstein 4537", "Soltero", LocalDate.parse("2002-04-21"), 950000.0, 505, "Efectivo");
+		Empleado Alexander = new EmpleadoPlantaPermanente("Alexander", 44130295, "Husares 3855", "Soltero", LocalDate.parse("2002-03-24"), 1200000.0, 4, 20);
+		TecnoLab.registrarEmpleado(Joaquin);
+		TecnoLab.registrarEmpleado(Alexander);
+		TecnoLab.totalSueldosNetos();
+	}
+
+Resultados de salida en consola:
+
+La empresa TecnoLab S.A ha sido creada con éxito.
+Se ha registrado a Joaquin en la empresa TecnoLab S.A con éxito.
+Se ha registrado a Alexander en la empresa TecnoLab S.A con éxito.
+El monto total de los sueldos netos es de $1850320.0.
+
+Liquidación de Sueldos Netos:
+
+	public static void main(String[] args) {
+		Empresa TecnoLab = new Empresa("TecnoLab S.A", 25325);
+		Empleado Joaquin = new EmpleadoContratado("Joaquin", 44170192, "Albert Einstein 4537", "Soltero", LocalDate.parse("2002-04-21"), 950000.0, 505, "Efectivo");
+		Empleado Alexander = new EmpleadoPlantaPermanente("Alexander", 44130295, "Husares 3855", "Soltero", LocalDate.parse("2002-03-24"), 1200000.0, 4, 20);
+		TecnoLab.registrarEmpleado(Joaquin);
+		TecnoLab.registrarEmpleado(Alexander);
+		TecnoLab.liquidarSueldos();
+	}
+
+Resultados de salida en consola:
+
+La empresa TecnoLab S.A ha sido creada con éxito.
+Se ha registrado a Joaquin en la empresa TecnoLab S.A con éxito.
+Se ha registrado a Alexander en la empresa TecnoLab S.A con éxito.
+El sueldo del trabajador Joaquin ha sido liquidado con éxito.
+=== Desglose de Conceptos ===
+Nombre trabajador: Joaquin
+Tipo : Contratado
+Sueldo basico: $950000.0
+Sueldo bruto: $950000.0
+Retenciones: 
+Gastos administrativos contractuales: $50.0
+Sueldo Neto: $949950.0
+
+El sueldo del trabajador Alexander ha sido liquidado con éxito.
+=== Desglose de Conceptos ===
+Nombre trabajador: Alexander
+Tipo : Planta Permanente
+Sueldo basico: $1200000.0
+Salario familiar: $600.0
+Sueldo bruto: $1200600.0
+Retenciones: 
+Obra social: $120060.0
+Aportes jubilatorios: $180090.0
+Descuento por hijos: $80.0
+Sueldo Neto: $900370.0
+
+Todos los sueldos han sido liquidados con éxito.
+
