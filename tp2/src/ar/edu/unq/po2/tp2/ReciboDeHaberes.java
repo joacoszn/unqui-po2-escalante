@@ -25,7 +25,7 @@ public class ReciboDeHaberes {
 	public String generarDesgloceDeConceptos() {
 		
 		return(empleado.generarDesgloce());		
-		}
+	}
 	
 }
 

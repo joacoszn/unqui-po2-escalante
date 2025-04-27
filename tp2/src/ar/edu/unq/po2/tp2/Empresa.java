@@ -85,8 +85,8 @@ public class Empresa {
 
 	public static void main(String[] args) {
 		Empresa TecnoLab = new Empresa("TecnoLab S.A", 25325);
-		Empleado Joaquin = new Contratado("Joaquin", 44170192, "Albert Einstein 4537", "Soltero", LocalDate.parse("2002-04-21"), 950000.0, 505, "Efectivo");
-		Empleado Alexander = new PlantaPermanente("Alexander", 44130295, "Husares 3855", "Soltero", LocalDate.parse("2002-03-24"), 1200000.0, 4, 20);
+		Empleado Joaquin = new EmpleadoContratado("Joaquin", 44170192, "Albert Einstein 4537", "Soltero", LocalDate.parse("2002-04-21"), 950000.0, 505, "Efectivo");
+		Empleado Alexander = new EmpleadoPlantaPermanente("Alexander", 44130295, "Husares 3855", "Soltero", LocalDate.parse("2002-03-24"), 1200000.0, 4, 20);
 		TecnoLab.registrarEmpleado(Joaquin);
 		TecnoLab.registrarEmpleado(Alexander);
 		TecnoLab.liquidarSueldos();
